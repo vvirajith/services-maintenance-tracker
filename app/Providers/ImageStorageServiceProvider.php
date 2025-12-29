@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Contracts\ImageStorageInterface;
+use App\Services\ImageStorage\LocalImageStorage;
 
-class AppServiceProvider extends ServiceProvider
+class ImageStorageServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
