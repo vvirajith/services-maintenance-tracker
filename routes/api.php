@@ -4,8 +4,20 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AssetApiController;
 use App\Http\Controllers\Api\ServiceRecordApiController;
+use App\Http\Controllers\Api\AuthController;
 
 Route::prefix('v1')->group(function () {
+
+    // Authentication routes
+    Route::post('register', [AuthController::class, 'register']);
+    Route::post('login', [AuthController::class, 'login']);
+});
+
+Route::prefix('v1')->middleware('auth:api')->group(function () {
+
+    // Auth user routes
+    Route::get('user', [AuthController::class, 'user']);
+    Route::post('logout', [AuthController::class, 'logout']);
 
     // Asset API Routes
     Route::prefix('assets')->group(function () {

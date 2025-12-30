@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\ServiceRecordService;
-use App\Services\AssetService;
 use App\Exceptions\AssetNotInStockException;
-use Illuminate\Http\Request;
+use App\Services\AssetService;
+use App\Services\ServiceRecordService;
 use Exception;
+use Illuminate\Http\Request;
 
 class ServiceRecordController extends Controller
 {
@@ -26,7 +26,7 @@ class ServiceRecordController extends Controller
 
             return view('service-records.index', compact('serviceRecords', 'filter'));
         } catch (Exception $e) {
-            return back()->with('error', 'Failed to load service records: ' . $e->getMessage());
+            return back()->with('error', 'Failed to load service records: '.$e->getMessage());
         }
     }
 
@@ -36,7 +36,7 @@ class ServiceRecordController extends Controller
             $assets = $this->assetService->getAssetsByStatus('IN_STOCK');
             return view('service-records.create', compact('assets'));
         } catch (Exception $e) {
-            return back()->with('error', 'Failed to load form: ' . $e->getMessage());
+            return back()->with('error', 'Failed to load form: '.$e->getMessage());
         }
     }
 
@@ -74,7 +74,7 @@ class ServiceRecordController extends Controller
                 ->with('error', $e->getMessage());
         } catch (Exception $e) {
             return back()->withInput()
-                ->with('error', 'Failed to create service record: ' . $e->getMessage());
+                ->with('error', 'Failed to create service record: '.$e->getMessage());
         }
     }
 
@@ -82,9 +82,10 @@ class ServiceRecordController extends Controller
     {
         try {
             $serviceRecord = $this->serviceRecordService->getServiceRecord($id);
+
             return view('service-records.show', compact('serviceRecord'));
         } catch (Exception $e) {
-            return back()->with('error', 'Service record not found: ' . $e->getMessage());
+            return back()->with('error', 'Service record not found: '.$e->getMessage());
         }
     }
 
@@ -99,7 +100,7 @@ class ServiceRecordController extends Controller
 
             return view('service-records.pickup', compact('serviceRecord'));
         } catch (Exception $e) {
-            return back()->with('error', 'Service record not found: ' . $e->getMessage());
+            return back()->with('error', 'Service record not found: '.$e->getMessage());
         }
     }
 
@@ -118,7 +119,7 @@ class ServiceRecordController extends Controller
 
         } catch (Exception $e) {
             return back()->withInput()
-                ->with('error', 'Failed to process pickup: ' . $e->getMessage());
+                ->with('error', 'Failed to process pickup: '.$e->getMessage());
         }
     }
 
@@ -129,8 +130,7 @@ class ServiceRecordController extends Controller
 
             return back()->with('success', 'Image deleted successfully!');
         } catch (Exception $e) {
-            return back()->with('error', 'Failed to delete image: ' . $e->getMessage());
+            return back()->with('error', 'Failed to delete image: '.$e->getMessage());
         }
     }
-
 }
